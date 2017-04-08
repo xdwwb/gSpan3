@@ -52,6 +52,7 @@ void GSpan::run(){
 			}//end for
 		}//end for
 	}//end for
+	getMaximal();
 }//end run
 
 void GSpan::subGraphMining(FSGraph &subGraph){
@@ -61,8 +62,15 @@ void GSpan::subGraphMining(FSGraph &subGraph){
 	if(!subGraph.gc.isMin(subGraph.g))
 		return;
 
+	if(resultSet.size()>0){
+		if(subGraph.gc.size() > resultSet.back().gc.size()) 
+			resultSet.back().isMaximal = false;
+		else
+			resultSet.back().isMaximal = true;
+	}
 	//加入结果集
 	resultSet.push_back(subGraph);
+	//subGraph = resultSet.back();
 	map<Edge5,vector<int>> summary;
 
 	//挖掘子代
@@ -81,9 +89,17 @@ void GSpan::subGraphMining(FSGraph &subGraph){
 
 	}
 	map<Edge5,vector<int>>::iterator itr;
+	
+	//subGraph.isMaximal = true;
+	//int pre_size = resultSet.size();
 	for(itr=summary.begin();itr!=summary.end();itr++){
+
+		//先假设是极大的
 		if(itr->second.size() < min_sup)
 			continue;
+		//如果存在频繁子代，则不是极大的，即使频繁子代的DFScode不是最小的
+		//resultSet.back().isMaximal = false;
+
 		DFScode child_gc = subGraph.gc;//复制父母
 		FSGraph childGraph;
 		child_gc.push_back(itr->first);//添加增长的边
@@ -91,6 +107,8 @@ void GSpan::subGraphMining(FSGraph &subGraph){
 		childGraph.supporter = (itr->second);//添加支持者
 		subGraphMining(childGraph);//子代挖掘
 	}
+	//if(pre_size == resultSet.size())//没有子代增长，所以是极大的！
+	//	subGraph.isMaximal = false;
 	
 
 
@@ -101,6 +119,13 @@ FrequentSubGraphSet& GSpan::getResult(){
 	return resultSet;
 }
 
+FrequentSubGraphSet& GSpan::getMaximal(){
+	for(size_t i=0;i<resultSet.size();i++){
+		if(resultSet[i].isMaximal == true)
+			maximalResultSet.push_back(resultSet[i]);
+	}
+	return maximalResultSet;
+}
 //展示结果
 void GSpan::show(){
 	cout<<"Graph Set Size: "<<gs.size()<<endl;
@@ -110,3 +135,15 @@ void GSpan::show(){
 
 	resultSet.show();
 }
+
+void GSpan::showMaximal(){
+	cout<<"Graph Set Size: "<<gs.size()<<endl;
+	cout<<"Minimum Support Count: "<<min_sup<<endl;
+	cout<<"Frequent SubGraph Number: "<<resultSet.size()<<endl;
+	cout<<"Maximal Frequent SubGraph Number: "<<maximalResultSet.size()<<endl;
+	cout<<endl;
+
+	maximalResultSet.show();
+
+}
+

@@ -24,11 +24,14 @@ public:
 	GraphSet &gs;//数据集
 	//GraphSet resultSet;//结果集
 	FrequentSubGraphSet resultSet;
+	FrequentSubGraphSet maximalResultSet;
 	
 	GSpan(int _min_sup,GraphSet &_gs):min_sup(_min_sup),gs(_gs){ }//设置所需要的参数
 	void run();//运行程序
 	FrequentSubGraphSet& getResult();
+	FrequentSubGraphSet& getMaximal();
 	void show();
+	void showMaximal();
 
 private:
     void subGraphMining(FSGraph &gc);//挖掘子图

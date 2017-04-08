@@ -58,6 +58,7 @@ int main(int argc,char**argv){
     gSpan.run();
 	clock_t end = clock();
     //gSpan.show();
+	gSpan.showMaximal();
     //展示结果
     //关闭文件流对象
     in.close();
