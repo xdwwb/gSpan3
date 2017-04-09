@@ -2,20 +2,20 @@
 #define GRAPHSET2_H
 
 #include <vector>
-#include"Graph.h"
-#include"GraphData.h"
-#include"GraphDataSet.h"
+#include "Graph.h"
+#include "GraphData.h"
+#include "GraphDataSet.h"
 
 using namespace std;
-class GraphSet:public vector<Graph>{
-	public:
-		int vertex_label_size;
-		int edge_label_size;
+class GraphSet :public vector<Graph> {
+public:
+	int vertex_label_size;
+	int edge_label_size;
 
-        GraphSet();//空的构造函数
+	GraphSet();//空的构造函数
 
-        GraphSet(GraphDataSet &gds);
-        void show();
+	GraphSet(GraphDataSet &gds);
+	void show();
 };
 
 #endif

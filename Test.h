@@ -4,9 +4,9 @@
 #include"Graph.h"
 #include"Children.h"
 
-class Test{
+class Test {
 public:
-	Test(){
+	Test() {
 		//将需要测试的项目加入其中
 		//DFSCodeTest();
 		//ChildrenTest();
@@ -14,9 +14,9 @@ public:
 	}
 
 	//为每一个类都可以写测试函数
-    void DFSCodeTest();
+	void DFSCodeTest();
 
-    void ChildrenTest();
+	void ChildrenTest();
 };//test class:DFScode
 
 

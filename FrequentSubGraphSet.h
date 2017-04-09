@@ -6,9 +6,9 @@
 #include <iostream>
 using namespace std;
 
-class FrequentSubGraphSet:public vector<FSGraph>{
+class FrequentSubGraphSet :public vector<FSGraph> {
 public:
-    void show();
+	void show();
 
 };
 

@@ -5,17 +5,17 @@
 #include <vector>
 using namespace std;
 
-class FSGraph{
+class FSGraph {
 public:
 	Graph g;
 	DFScode gc;
 	vector<int> supporter;
 	bool isMaximal;
-    void show();
-	void saveToFile(){
-	
+	void show();
+	void saveToFile() {
+
 	}
-	FSGraph(){
+	FSGraph() {
 		isMaximal = true;
 	}
 };

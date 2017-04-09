@@ -3,16 +3,16 @@
 
 
 
-class EdgeFrequency{
+class EdgeFrequency {
 public:
 	int *dynamicArray;
-	int x,y,z;
+	int x, y, z;
 	int min_sup;
 public:
-    void init(int node_label_size,int edge_label_size,int _min_sup);
-    int& operator()(int fromLabel,int eLabel,int toLabel);
+	void init(int node_label_size, int edge_label_size, int _min_sup);
+	int& operator()(int fromLabel, int eLabel, int toLabel);
 
-	~EdgeFrequency(){
+	~EdgeFrequency() {
 		delete[] dynamicArray;
 	}
 
@@ -20,6 +20,6 @@ public:
 
 
 
-extern EdgeFrequency ef;
+//extern EdgeFrequency ef;
 
 #endif
