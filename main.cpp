@@ -17,13 +17,13 @@ int main(int argc, char**argv) {
 
 	//保存命令行参数
 	ifstream in(argv[1]);
-	ofstream out(argv[2]);
+	//ofstream out(argv[2]);
 	ofstream nodeList("nodeList.csv");
 	ofstream edgeList("edgeList.csv");
-	double min_sup_rate = atof(argv[3]);
+	double min_sup_rate = atof(argv[2]);
 
 	//验证输入的命令行参数
-	if (argc != 4) {
+	if (argc != 3) {
 		cerr << "The number of argument is wrong, please check your input!\n";
 		return 0;
 	}
@@ -32,10 +32,10 @@ int main(int argc, char**argv) {
 		return 0;
 
 	}
-	else if (!out) {
+	/*else if (!out) {
 		cerr << "The output file path is invalid, please check your input!\n";
 		return 0;
-	}
+	}*/
 	else if (!(min_sup_rate > 0 && min_sup_rate <= 1)) {
 		cerr << "The min_sup_rate argument is invalid, it should between 0 and 1!\n";
 		return 0;
@@ -50,7 +50,13 @@ int main(int argc, char**argv) {
 	//进行根据标号频率重新标号的预处理
 	gds->reLabel(min_sup_rate);
 	//构建邻接表结构
-	GraphSet gs(*gds);
+	GraphSet gs(gds->vertex_label_size, gds->edge_label_size);
+
+	for (size_t i = 0;i < gds->size();i++) {
+		Graph g;
+		g = (*gds)[i].buildGraph(g);
+		gs.push_back(g);
+	}
 
 	vector<int> nodeLabelRecover = gds->nodeLabelRecover;
 	vector<int> edgeLabelRecover = gds->edgeLabelRecover;
@@ -74,7 +80,7 @@ int main(int argc, char**argv) {
 	nodeList.close();
 	edgeList.close();
 	in.close();
-	out.close();
+	//out.close();
 
 	clog << "----------------------------------------------------" << endl;
 	clog << "gSpan:                             " << endl;

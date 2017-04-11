@@ -44,9 +44,11 @@ bool DFScode::isMin(const Graph &g, const DFScode &gc) {
 		if (x > gc[0].fromLabel)
 			continue;
 
-		assert(x == gc[0].fromLabel);
-		//if(x < s[0].fromLabel)
-		//	return false;//这样肯定不是最小的，但这种情况根本不可能出现！
+		//assert(x == gc[0].fromLabel);
+		if (x < gc[0].fromLabel) {
+			assert(g.edgeLabel[i].empty());//又一次验证了作者的想法是正确的！
+			return false;//这样肯定不是最小的，但这种情况根本不可能出现！<-这段话有误！
+		}
 
 
 		vector<int> v(1, (int)i);//size + init value

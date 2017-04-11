@@ -100,10 +100,11 @@ void GSpan::subGraphMining(FSGraph &subGraph) {
 		//如果存在频繁子代，则不是极大的，即使频繁子代的DFScode不是最小的
 		//resultSet.back().isMaximal = false;
 
-		DFScode child_gc = subGraph.gc;//复制父母
+		//DFScode child_gc = subGraph.gc;//复制父母
 		FSGraph childGraph;
-		child_gc.push_back(itr->first);//添加增长的边
-		childGraph.gc = child_gc;
+		childGraph.gc = subGraph.gc;
+		childGraph.gc.push_back(itr->first);//添加增长的边
+		//childGraph.gc = child_gc;
 		childGraph.supporter = (itr->second);//添加支持者
 		subGraphMining(childGraph);//子代挖掘
 	}

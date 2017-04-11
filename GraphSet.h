@@ -14,7 +14,7 @@ public:
 
 	GraphSet();//空的构造函数
 
-	GraphSet(GraphDataSet &gds);
+	GraphSet(int vertexLabelSize, int edgeLabelSize);
 	void show();
 };
 

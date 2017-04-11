@@ -23,7 +23,7 @@ public:
 	int min_sup;//最小支持度
 
 	GraphSet &gs;//数据集
-	
+
 	FrequentSubGraphSet resultSet;//频繁子图结果集
 
 	FrequentSubGraphSet maximalResultSet;//极大频繁子图结果集
@@ -42,7 +42,7 @@ public:
 
 	void save(ofstream &nodeList, ofstream &edgeList, FrequentSubGraphSet &gset);
 
-	void save(ofstream &nodeList, ofstream &edgeList, FrequentSubGraphSet &gset,vector<int>nodeLabelRecover,vector<int>edgeLabelRecover);
+	void save(ofstream &nodeList, ofstream &edgeList, FrequentSubGraphSet &gset, vector<int>nodeLabelRecover, vector<int>edgeLabelRecover);
 
 
 private:
