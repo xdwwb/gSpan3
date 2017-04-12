@@ -26,6 +26,7 @@ void GSpan::run() {
 			}//end for
 		}//end for
 	}//end for
+	int count = 0;
 	for (size_t i = 0;i < gs.vertex_label_size;i++) {//有序枚举，按照字典序
 		for (size_t j = 0;j < gs.edge_label_size;j++) {
 			for (size_t k = i;k < gs.vertex_label_size;k++) {//只统计上三角即可！令k从i开始;、
@@ -43,9 +44,10 @@ void GSpan::run() {
 						subGraph.supporter.push_back(g);//加入支持者
 					}
 				}
-
+				int temp = resultSet.size();
 				subGraphMining(subGraph);//频繁增长图挖掘
-
+				cout << "Frequent one edge: "<<count<<"\t"<<"number: "<<resultSet.size()-temp<<endl;
+				count++;
 				for (size_t g = 0;g < gs.size();g++) {
 					gs[g].removeEdge(i, j, k);
 				}
