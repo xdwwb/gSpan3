@@ -1,6 +1,7 @@
 #include "GSpan.h"
 #include <set>
 #include "FSGraph.h"
+#include <stdlib.h>
 using namespace std;
 //运行程序,算法主要实现在这里
 //发现频繁一边，然后直接挖掘子代
@@ -27,6 +28,7 @@ void GSpan::run() {
 		}//end for
 	}//end for
 	int count = 0;
+	//cout << "Frequent one edge" << "\t" << "Number" << "\t" << "Use time" << "\t" <<"Average use time"<< endl;
 	for (size_t i = 0;i < gs.vertex_label_size;i++) {//有序枚举，按照字典序
 		for (size_t j = 0;j < gs.edge_label_size;j++) {
 			for (size_t k = i;k < gs.vertex_label_size;k++) {//只统计上三角即可！令k从i开始;、
@@ -45,8 +47,11 @@ void GSpan::run() {
 					}
 				}
 				int temp = resultSet.size();
+				clock_t begin = clock();
 				subGraphMining(subGraph);//频繁增长图挖掘
-				cout << "Frequent one edge: "<<count<<"\t"<<"number: "<<resultSet.size()-temp<<endl;
+				clock_t end = clock();
+				double average = (end - begin) / (double)(resultSet.size() - temp);
+				cout <<count<<"\t"<<resultSet.size()-temp<<"\t"<<(end-begin)/1000.0<<"\t"<<"s"<<"\t"<<average<<"\t"<<"ms"<<endl;
 				count++;
 				for (size_t g = 0;g < gs.size();g++) {
 					gs[g].removeEdge(i, j, k);

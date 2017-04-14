@@ -40,9 +40,9 @@ int main(int argc, char**argv) {
 		cerr << "The min_sup_rate argument is invalid, it should between 0 and 1!\n";
 		return 0;
 	}
-
+	cout << "\nWelcome to gSpan!\nAuhtor: Weibing Wang" << endl;
 	Test test;
-
+	cout << "\nReading data from file......" << endl;
 	//创建图数据集合对象
 	GraphDataSet* gds = new GraphDataSet;
 	//读取文件数据
@@ -50,6 +50,8 @@ int main(int argc, char**argv) {
 	//进行根据标号频率重新标号的预处理
 	gds->reLabel(min_sup_rate);
 	//构建邻接表结构
+	cout << "Read done!" << endl;
+	cout << "Constructing graph set......" << endl;
 	GraphSet gs(gds->vertex_label_size, gds->edge_label_size);
 
 	for (size_t i = 0;i < gds->size();i++) {
@@ -57,6 +59,8 @@ int main(int argc, char**argv) {
 		g = (*gds)[i].buildGraph(g);
 		gs.push_back(g);
 	}
+	cout << "Construct done!" << endl;
+	
 
 	vector<int> nodeLabelRecover = gds->nodeLabelRecover;
 	vector<int> edgeLabelRecover = gds->edgeLabelRecover;
@@ -68,6 +72,13 @@ int main(int argc, char**argv) {
 	int min_sup = (int)(min_sup_rate*gs.size());
 	if (min_sup < 1)
 		min_sup = 1;
+	clog << "\nGraph set summary:" << endl;
+	clog << "$Graph Set Size:                    " << gs.size() << endl;
+	clog << "$Vertex label size:                 "<<gs.vertex_label_size<<endl;
+	clog << "$Edge label size:                   " << gs.edge_label_size << endl;
+	clog << "$Minimum Support Count:             " << min_sup << endl;
+
+	cout << "\ngSpan is running......" << endl;
 	GSpan gSpan(min_sup, gs);
 	clock_t begin = clock();
 	gSpan.run();
@@ -81,16 +92,15 @@ int main(int argc, char**argv) {
 	edgeList.close();
 	in.close();
 	//out.close();
-
+	clog << "\nResult summary:" << endl;
 	clog << "----------------------------------------------------" << endl;
-	clog << "gSpan:                             " << endl;
-	clog << "Graph Set Size:                    " << gSpan.gs.size() << endl;
-	clog << "Minimum Support Count:             " << gSpan.min_sup << endl;
-	clog << "Frequent Subgraph Number:          " << gSpan.resultSet.size() << endl;
-	clog << "Maximal Frequent SubGraph Number:  " << gSpan.maximalResultSet.size() << endl;
-	clog << "Use Time:                          " << end - begin << "ms" << endl;
+	clog << "$Graph Set Size:                    " << gSpan.gs.size() << endl;
+	clog << "$Minimum Support Count:             " << gSpan.min_sup << endl;
+	clog << "$Frequent Subgraph Number:          " << gSpan.resultSet.size() << endl;
+	clog << "$Maximal Frequent SubGraph Number:  " << gSpan.maximalResultSet.size() << endl;
+	clog << "$Use Time:                          " << end - begin << "ms" << endl;
 	clog << "----------------------------------------------------" << endl;
-	system("pause");
+	//system("pause");
 
 	return 0;
 }
